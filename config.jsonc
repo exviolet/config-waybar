@@ -22,12 +22,12 @@
         "mpd",
         "user",
         "pulseaudio",
-        "network",
-        "bluetooth",
+        "group/net",
+        "group/hardware",
         "power-profiles-daemon",
-        "cpu",
+        // "cpu",
         // "memory",
-        "temperature",
+        // "temperature",
         "backlight",
         "keyboard-state",
         "hyprland/language",
@@ -202,16 +202,16 @@
         "on-click": "pavucontrol"
     },
     "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
+        "format": " {text}",
+        // "return-type": "json",
+        "interval": 1,
         "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
         "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        "exec": "$HOME/.config/waybar/customs/spotify-track.sh", // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "on-click": "playerctl -p spotify previous", 
+        "on-click-right": "playerctl -p spotify next", 
+        "on-click-middle": "playerctl -p spotify play-pause"
     },
     "custom/power": {
         "on-click": "wlogout",
@@ -240,5 +240,31 @@
         "height": 30,
         "width": 30,
         "icon": true
-}
+    },
+    "custom/hardware": {
+        "format": "󰮂",
+    },
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+                "custom/hardware",
+          "cpu",
+          "memory",
+          "temperature",
+                "disk"
+        ],
+            "drawer": {
+                "transition-duration": 500,
+                "children-class": "not-power",
+                "transition-left-to-right": true
+            }
+      },
+      "group/net": {
+          "orientation": "horizontal",
+          "modules": [
+              "network",
+              "bluetooth"
+          ] 
+      },
+
 }
